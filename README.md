@@ -1,2 +1,2 @@
 # PGo
-A giant project that probably won't be finished.
+A giant PnW discord bot that probably won't be finished.
