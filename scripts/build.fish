@@ -1,15 +1,15 @@
 echo Running from $(pwd)
 
 function build-on -a os arch ver
-    set file "-$ver-$os_$arch"
+    set file "-$ver-$os""_$arch"
     if test "$os" = "windows"
         set file $file.exe
     else if test "$os" = "js"
         set file $file.asm
     end
-    GOOS=$os GOARCH=$arch go build -o=./build/pgo$file ./cmd/pgo
+    GOOS=$os GOARCH=$arch go build -o=./build/pgo$file ./cmd/pgo && echo SUCCESS
     echo "build/pgo$file"
-    GOOS=$os GOARCH=$arch go build -o=./build/pgo-discord$file ./cmd/pgo-discord
+    GOOS=$os GOARCH=$arch go build -o=./build/pgo-discord$file ./cmd/pgo-discord go && echo SUCCESS
     echo "build/pgo-discord$file"
 end
 
