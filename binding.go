@@ -1,8 +1,16 @@
 package pgo
 
+import flag "github.com/spf13/pflag"
+
 type Command struct {
-	Action      func(args []string) (string, error)
+	Name string
+	Action func([]string) (string, error)
 	Description string
+	*flag.FlagSet
 }
 
-var Commands map[string]Command
+var Commands map[string]Command = map[string]Command{}
+
+func AddCommand(command Command) {
+	Commands[command.Name] = command
+}

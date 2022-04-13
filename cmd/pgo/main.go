@@ -8,5 +8,5 @@ import (
 )
 
 func main() {
-	fmt.Println(pgo.Parse(os.Args[1:]))
+	fmt.Println(pgo.Parse(os.Args))
 }

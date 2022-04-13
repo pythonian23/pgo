@@ -11,3 +11,5 @@ var ErrorHandler func(error) string = func(err error) string {
 var NoCommandHandler func(string) string = func(command string) string {
 	return fmt.Sprintf("Command %s does not exist.", command)
 }
+
+var SeriousErrorHandler func(error) string = ErrorHandler
