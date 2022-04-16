@@ -3,8 +3,8 @@ package pgo
 import flag "github.com/spf13/pflag"
 
 type Command struct {
-	Name string
-	Action func([]string) (string, error)
+	Name        string
+	Action      func([]string) (string, error)
 	Description string
 	*flag.FlagSet
 }

@@ -1,12 +1,13 @@
 package pgo
 
 import (
-	flag "github.com/spf13/pflag"
-	"text/template"
 	"bytes"
+	"text/template"
+
+	flag "github.com/spf13/pflag"
 )
 
-var HelpTemplate *template.Template = template.Must(template.New("help").Funcs(template.FuncMap{"usages": func(fs *flag.FlagSet)string{return fs.FlagUsages()}}).Parse(`{{ .Name }} - {{ .Description }}
+var HelpTemplate *template.Template = template.Must(template.New("help").Funcs(template.FuncMap{"usages": func(fs *flag.FlagSet) string { return fs.FlagUsages() }}).Parse(`{{ .Name }} - {{ .Description }}
 ALIASES
 ARGUMENTS
 {{ .FlagSet.FlagUsages }}`))
