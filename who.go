@@ -13,7 +13,7 @@ var id *int = whoFlags.IntP("id", "i", 0, "The nation/alliance ID (just the numb
 var link *string = whoFlags.StringP("link", "l", "", "The nation/alliance link.")
 var discordName *string = whoFlags.StringP("discord", "d", "", "The discord name")
 var key *string = whoFlags.StringP("key", "k", "", "The API Key")
-
+var whoCmd *Command
 const whoQuery = "{nations(id:6) {data{nation_name}}}"
 
 var whoData = struct {
@@ -32,7 +32,7 @@ func who(args []string) (string, error) {
 	}
 	Key = *key
 	if *help {
-		return HelpSubCommand(Commands["who"]), nil
+		return HelpSubCommand(whoCmd), nil
 	}
 	if *id != 0 {
 		request(whoQuery, whoData)
@@ -42,6 +42,7 @@ func who(args []string) (string, error) {
 }
 
 func init() {
+	whoCmd = &Command{"who", who, "get information about the nation/alliance", []string{}, whoFlags}
 	whoFlags.SortFlags = false
-	AddCommand(Command{"who", who, "get information about the nation/alliance", whoFlags})
+	AddCommand(whoCmd)
 }

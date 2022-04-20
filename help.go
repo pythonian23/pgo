@@ -12,7 +12,7 @@ ALIASES
 ARGUMENTS
 {{ .FlagSet.FlagUsages }}`))
 
-func HelpSubCommand(command Command) string {
+func HelpSubCommand(command *Command) string {
 	buf := &bytes.Buffer{}
 	err := HelpTemplate.Execute(buf, command)
 	if err != nil {

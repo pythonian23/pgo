@@ -4,7 +4,7 @@ func Parse(args []string) string {
 	if len(args) < 2 {
 		return "usage: pgo <SUBCOMMAND> [OPTIONS]"
 	}
-	command, ok := Commands[args[1]]
+	command, ok := GetCommand(args[1])
 	if !ok {
 		return NoCommandHandler(args[1])
 	}
