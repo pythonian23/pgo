@@ -14,6 +14,7 @@ var link *string = whoFlags.StringP("link", "l", "", "The nation/alliance link."
 var discordName *string = whoFlags.StringP("discord", "d", "", "The discord name")
 var key *string = whoFlags.StringP("key", "k", "", "The API Key")
 var whoCmd *Command
+
 const whoQuery = "{nations(id:6) {data{nation_name}}}"
 
 var whoData = struct {

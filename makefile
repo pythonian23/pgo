@@ -8,3 +8,6 @@ install:
 build:
 	go build -o=./bin/ ./cmd/pgo
 	go build -o=./bin/ ./cmd/pgo-discord
+format:
+	gofmt -w .
+	goimports -w .
