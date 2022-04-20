@@ -42,7 +42,7 @@ func who(args []string) (string, error) {
 }
 
 func init() {
-	whoCmd = &Command{"who", who, "get information about the nation/alliance", []string{}, whoFlags}
+	whoCmd = &Command{"who", who, "get information about the nation/alliance", []string{"whois"}, whoFlags}
 	whoFlags.SortFlags = false
 	AddCommand(whoCmd)
 }

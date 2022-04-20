@@ -8,7 +8,8 @@ import (
 )
 
 var HelpTemplate *template.Template = template.Must(template.New("help").Funcs(template.FuncMap{"usages": func(fs *flag.FlagSet) string { return fs.FlagUsages() }}).Parse(`{{ .Name }} - {{ .Description }}
-ALIASES
+ALIASES{{ range .Aliases }}
+{{ . }}{{end}}
 ARGUMENTS
 {{ .FlagSet.FlagUsages }}`))
 
