@@ -3,10 +3,11 @@ package pgo
 import (
 	"fmt"
 
+	flags "github.com/pythonian23/pgo/flags"
 	flag "github.com/spf13/pflag"
 )
 
-var whoFlags *flag.FlagSet = NewFlagSet("who", IdentityFlags)
+var whoFlags *flag.FlagSet = flags.NewFlagSet("who", flags.IdentityFlags)
 var key *string = whoFlags.StringP("key", "k", "", "The API Key")
 var whoCmd *Command
 
@@ -27,10 +28,10 @@ func who(args []string) (string, error) {
 		return "", err
 	}
 	Key = *key
-	if *GeneralFlags.Help {
+	if *flags.GeneralFlags.Help {
 		return HelpSubCommand(whoCmd), nil
 	}
-	if *IdentityFlags.ID != 0 {
+	if *flags.IdentityFlags.ID != 0 {
 		request(whoQuery, whoData)
 		return fmt.Sprintln(whoData), nil
 	}
