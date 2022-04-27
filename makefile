@@ -11,3 +11,4 @@ build:
 format:
 	gofmt -w .
 	goimports -w .
+	go mod tidy
