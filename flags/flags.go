@@ -1,4 +1,4 @@
-package pgo
+package flags
 
 import (
 	"sync"
