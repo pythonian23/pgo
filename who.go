@@ -7,7 +7,7 @@ import (
 	flag "github.com/spf13/pflag"
 )
 
-var whoFlags *flag.FlagSet = flags.NewFlagSet("who", flags.IdentityFlags)
+var whoFlags *flag.FlagSet = flags.NewFlagSet("who", flags.IdentityFlagSet)
 var key *string = whoFlags.StringP("key", "k", "", "The API Key")
 var whoCmd *Command
 
@@ -23,15 +23,15 @@ var whoData = struct {
 }{}
 
 func who(args []string) (string, error) {
-	err := whoFlags.Parse(args)
+	arguments, err := flags.ReadArgs(whoFlags, args)
 	if err != nil {
 		return "", err
 	}
 	Key = *key
-	if *flags.GeneralFlags.Help {
+	if *arguments.Help {
 		return HelpSubCommand(whoCmd), nil
 	}
-	if *flags.IdentityFlags.ID != 0 {
+	if *arguments.ID != 0 {
 		request(whoQuery, whoData)
 		return fmt.Sprintln(whoData), nil
 	}

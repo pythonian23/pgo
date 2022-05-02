@@ -1,48 +1,24 @@
 package flags
 
 import (
+	"sync"
+
 	flag "github.com/spf13/pflag"
 )
 
-type Flagger interface {
-	FlagSet() *flag.FlagSet
-	Lock()
-	Unlock()
-}
+var GeneralFlagSet *flag.FlagSet = flag.NewFlagSet("general", flag.ContinueOnError)
+var IdentityFlagSet *flag.FlagSet = flag.NewFlagSet("identity", flag.ContinueOnError)
 
-// NewFlagSet returns a new FlagSet with the given name.
-// The FlagSetters in flags are added,
-// and GeneralFlags is added by default.
-func NewFlagSet(name string, flags ...Flagger) *flag.FlagSet {
-	fs := flag.NewFlagSet(name, flag.ContinueOnError)
-	for _, flags := range flags {
-		fs.AddFlagSet(flags.FlagSet())
-	}
-	return fs
-}
+var commonArgsLock sync.Mutex = sync.Mutex{}
+var commonArgs Args = Args{
+	generalArgs: &generalArgs{
+		Help: GeneralFlagSet.BoolP("help", "h", false, "Show help about this command."),
+	},
 
-type Flags flag.FlagSet
-
-func SetToFlags(flagSet *flag.FlagSet) *Flags {
-	return (*Flags)(flagSet)
-}
-
-func (f *Flags) FlagSet() *flag.FlagSet {
-	return (*flag.FlagSet)(f)
-}
-
-// Parse runs Reset, then parses the given arguments.
-func (f *Flags) Parse(args []string) error {
-	return f.FlagSet().Parse(args)
-}
-
-// Reset resets all set values in the Flag.
-// Panics if any flag is unable to be set to its default value.
-func (f *Flags) Reset() {
-	f.FlagSet().Visit(func(f *flag.Flag) {
-		f.Changed = false
-		if err := f.Value.Set(f.DefValue); err != nil {
-			panic(err)
-		}
-	})
+	identityArgs: &identityArgs{
+		Alliance:    IdentityFlagSet.BoolP("alliance", "a", false, "Alliance mode switch. only links and IDs are allowed in alliance mode."),
+		ID:          IdentityFlagSet.IntP("id", "i", 0, "The nation/alliance ID (just the number)"),
+		Link:        IdentityFlagSet.StringP("link", "l", "", "The nation/alliance link."),
+		DiscordName: IdentityFlagSet.StringP("discord", "d", "", "The discord name"),
+	},
 }
