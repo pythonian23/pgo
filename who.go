@@ -3,7 +3,7 @@ package pgo
 import (
 	"fmt"
 
-	"github.com/pythonian23/pgo/flags"
+	"github.com/pythonian23/pgo/internal/flags"
 	flag "github.com/spf13/pflag"
 )
 
