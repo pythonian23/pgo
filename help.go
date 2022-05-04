@@ -7,7 +7,7 @@ import (
 	flag "github.com/spf13/pflag"
 )
 
-var HelpTemplate *template.Template = template.Must(template.New("help").Funcs(template.FuncMap{"usages": func(fs *flag.FlagSet) string { return fs.FlagUsages() }}).Parse(`{{ .Name }} - {{ .Description }}
+var HelpTemplate = template.Must(template.New("help").Funcs(template.FuncMap{"usages": func(fs *flag.FlagSet) string { return fs.FlagUsages() }}).Parse(`{{ .Name }} - {{ .Description }}
 ALIASES{{ range .Aliases }}
 {{ . }}{{end}}
 ARGUMENTS

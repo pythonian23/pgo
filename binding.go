@@ -10,8 +10,8 @@ type Command struct {
 	flags.Flags
 }
 
-var commands map[string]*Command = map[string]*Command{}
-var aliases map[string]string = map[string]string{}
+var commands = map[string]*Command{}
+var aliases = map[string]string{}
 
 func GetCommand(name string) (cmd *Command, ok bool) {
 	for alias, command := range aliases {

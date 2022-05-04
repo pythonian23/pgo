@@ -6,7 +6,7 @@ import (
 	"github.com/pythonian23/pgo/internal/flags"
 )
 
-var whoFlags flags.Flags = flags.NewFlags("who", flags.IdentityFlagSet, flags.APIFlagSet)
+var whoFlags = flags.NewFlags("who", flags.IdentityFlagSet, flags.APIFlagSet)
 var whoCmd *Command
 
 const whoQuery = "{nations(id:6) {data{nation_name}}}"

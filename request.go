@@ -9,7 +9,7 @@ import (
 	"net/url"
 )
 
-var API string = "https://api.politicsandwar.com/graphql"
+var API = "https://api.politicsandwar.com/graphql"
 var Key string
 
 func request(query string, out interface{}) error {

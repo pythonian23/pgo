@@ -6,12 +6,12 @@ import (
 	flag "github.com/spf13/pflag"
 )
 
-var GeneralFlagSet *flag.FlagSet = flag.NewFlagSet("general", flag.ContinueOnError)
-var IdentityFlagSet *flag.FlagSet = flag.NewFlagSet("identity", flag.ContinueOnError)
-var APIFlagSet *flag.FlagSet = flag.NewFlagSet("api", flag.ContinueOnError)
+var GeneralFlagSet = flag.NewFlagSet("general", flag.ContinueOnError)
+var IdentityFlagSet = flag.NewFlagSet("identity", flag.ContinueOnError)
+var APIFlagSet = flag.NewFlagSet("api", flag.ContinueOnError)
 
-var commonArgsLock sync.Mutex = sync.Mutex{}
-var commonArgs Args = Args{
+var commonArgsLock = sync.Mutex{}
+var commonArgs = Args{
 	generalArgs: &generalArgs{
 		Help: GeneralFlagSet.BoolP("help", "h", false, "Show help about this command."),
 	},
