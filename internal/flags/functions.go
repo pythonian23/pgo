@@ -4,18 +4,21 @@ import (
 	flag "github.com/spf13/pflag"
 )
 
-func NewFlagSet(name string, flagSets ...*flag.FlagSet) *flag.FlagSet {
+// NewFlags composes a new Flags object from the provided FlagSets.
+// GeneralFlagSet is added by default.
+func NewFlags(name string, flagSets ...*flag.FlagSet) Flags {
 	flagSet := flag.NewFlagSet(name, flag.ContinueOnError)
+	flagSet.SortFlags = false
 	flagSet.AddFlagSet(GeneralFlagSet)
 	for _, fs := range flagSets {
 		flagSet.AddFlagSet(fs)
 	}
-	return flagSet
+	return Flags{flagSet}
 }
 
-func ReadArgs(fs *flag.FlagSet, args []string) (Args, error) {
+func ReadArgs(flags Flags, args []string) (Args, error) {
 	commonArgsLock.Lock()
 	defer commonArgsLock.Unlock()
-	err := fs.Parse(args)
+	err := flags.Parse(args)
 	return commonArgs, err
 }

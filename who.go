@@ -4,10 +4,9 @@ import (
 	"fmt"
 
 	"github.com/pythonian23/pgo/internal/flags"
-	flag "github.com/spf13/pflag"
 )
 
-var whoFlags *flag.FlagSet = flags.NewFlagSet("who", flags.IdentityFlagSet, flags.APIFlagSet)
+var whoFlags flags.Flags = flags.NewFlags("who", flags.IdentityFlagSet, flags.APIFlagSet)
 var whoCmd *Command
 
 const whoQuery = "{nations(id:6) {data{nation_name}}}"
@@ -39,6 +38,5 @@ func who(args []string) (string, error) {
 
 func init() {
 	whoCmd = &Command{"who", who, "get information about the nation/alliance", []string{"whois"}, whoFlags}
-	whoFlags.SortFlags = false
 	AddCommand(whoCmd)
 }

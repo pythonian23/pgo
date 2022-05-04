@@ -1,13 +1,13 @@
 package pgo
 
-import flag "github.com/spf13/pflag"
+import "github.com/pythonian23/pgo/internal/flags"
 
 type Command struct {
 	Name        string
 	Action      func([]string) (string, error)
 	Description string
 	Aliases     []string
-	*flag.FlagSet
+	flags.Flags
 }
 
 var commands map[string]*Command = map[string]*Command{}
