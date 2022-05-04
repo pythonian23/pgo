@@ -8,6 +8,7 @@ import (
 
 var GeneralFlagSet *flag.FlagSet = flag.NewFlagSet("general", flag.ContinueOnError)
 var IdentityFlagSet *flag.FlagSet = flag.NewFlagSet("identity", flag.ContinueOnError)
+var APIFlagSet *flag.FlagSet = flag.NewFlagSet("api", flag.ContinueOnError)
 
 var commonArgsLock sync.Mutex = sync.Mutex{}
 var commonArgs Args = Args{
@@ -20,5 +21,8 @@ var commonArgs Args = Args{
 		ID:          IdentityFlagSet.IntP("id", "i", 0, "The nation/alliance ID (just the number)"),
 		Link:        IdentityFlagSet.StringP("link", "l", "", "The nation/alliance link."),
 		DiscordName: IdentityFlagSet.StringP("discord", "d", "", "The discord name"),
+	},
+	apiArgs: &apiArgs{
+		APIKey: APIFlagSet.StringP("key", "K", "", "The API key to be used for accessing the API"),
 	},
 }

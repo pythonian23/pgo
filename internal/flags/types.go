@@ -3,6 +3,7 @@ package flags
 type Args struct {
 	*generalArgs
 	*identityArgs
+	*apiArgs
 }
 
 type generalArgs struct {
@@ -13,4 +14,7 @@ type identityArgs struct {
 	ID          *int
 	Link        *string
 	DiscordName *string
+}
+type apiArgs struct {
+	APIKey *string
 }

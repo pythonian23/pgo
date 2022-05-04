@@ -7,8 +7,7 @@ import (
 	flag "github.com/spf13/pflag"
 )
 
-var whoFlags *flag.FlagSet = flags.NewFlagSet("who", flags.IdentityFlagSet)
-var key *string = whoFlags.StringP("key", "k", "", "The API Key")
+var whoFlags *flag.FlagSet = flags.NewFlagSet("who", flags.IdentityFlagSet, flags.APIFlagSet)
 var whoCmd *Command
 
 const whoQuery = "{nations(id:6) {data{nation_name}}}"
@@ -27,7 +26,7 @@ func who(args []string) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	Key = *key
+	Key = *arguments.APIKey
 	if *arguments.Help {
 		return HelpSubCommand(whoCmd), nil
 	}
