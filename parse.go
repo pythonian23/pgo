@@ -2,6 +2,8 @@ package pgo
 
 import flag "github.com/spf13/pflag"
 
+// Parse is the entrypoint for running pgo.
+// It requires arguments in an os.Args-like style and outputs a string.
 func Parse(args []string) string {
 	if len(args) < 2 {
 		return "usage: pgo <SUBCOMMAND> [OPTIONS]"

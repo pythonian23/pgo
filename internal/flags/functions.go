@@ -16,6 +16,7 @@ func NewFlags(name string, flagSets ...*flag.FlagSet) Flags {
 	return Flags{flagSet}
 }
 
+// ReadArgs parses the arguments using the given Flags and returns a copy of the arguments.
 func ReadArgs(flags Flags, args []string) (Args, error) {
 	commonArgsLock.Lock()
 	defer commonArgsLock.Unlock()

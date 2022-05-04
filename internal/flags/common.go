@@ -6,8 +6,11 @@ import (
 	flag "github.com/spf13/pflag"
 )
 
+// GeneralFlagSet contains flags that should be in every command.
 var GeneralFlagSet = flag.NewFlagSet("general", flag.ContinueOnError)
+// IdentityFlagSet contains flags for identifying a desired nation or alliance.
 var IdentityFlagSet = flag.NewFlagSet("identity", flag.ContinueOnError)
+// APIFlagSet contains flags for accessing the API.
 var APIFlagSet = flag.NewFlagSet("api", flag.ContinueOnError)
 
 var commonArgsLock = sync.Mutex{}
