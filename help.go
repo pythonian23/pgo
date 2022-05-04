@@ -19,7 +19,7 @@ func HelpSubCommand(command *Command) string {
 	buf := &bytes.Buffer{}
 	err := HelpTemplate.Execute(buf, command)
 	if err != nil {
-		return SeriousErrorHandler(err)
+		return ErrorHandler(err)
 	}
 	return buf.String()
 }

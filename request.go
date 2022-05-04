@@ -11,6 +11,7 @@ import (
 
 // API is the API URL
 var API = "https://api.politicsandwar.com/graphql"
+
 // Key is the API key
 var Key string
 
