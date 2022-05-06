@@ -1,6 +1,10 @@
 package api
 
 type Response struct {
+	Data Data `json:"data"`
+}
+
+type Data struct {
 	Me              APIKeyDetails          `json:"me"`
 	Treasures       []Treasure             `json:"treasures"`
 	Colors          []Color                `json:"colors"`

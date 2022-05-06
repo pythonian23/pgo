@@ -11,15 +11,6 @@ var whoCmd *Command
 
 const whoQuery = "{nations(id:6) {data{nation_name}}}"
 
-var whoData = struct {
-	Errors []struct{ Message string }
-	Data   struct {
-		Nations []struct {
-			NationName string `json:"nation_name"`
-		}
-	}
-}{}
-
 func who(args []string) (string, error) {
 	arguments, err := flags.ReadArgs(whoFlags, args)
 	if err != nil {
@@ -30,8 +21,8 @@ func who(args []string) (string, error) {
 		return HelpSubCommand(whoCmd), nil
 	}
 	if *arguments.ID != 0 {
-		request(whoQuery, whoData)
-		return fmt.Sprintln(whoData), nil
+		data, err := request(whoQuery)
+		return fmt.Sprintln(data.Nations), err
 	}
 	return "not yet implemented", nil
 }
