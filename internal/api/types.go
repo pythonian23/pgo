@@ -20,6 +20,8 @@ type Response struct {
 	BaseballPlayers BBPlayerPaginator      `json:"baseball_players"`
 	TreasureTrades  TreasureTradePaginator `json:"treasure_trades"`
 	Embargoes       EmbargoPaginator       `json:"embargoes"`
+
+	Errors []Error `json:"errors"`
 }
 
 type APIKeyDetails struct {

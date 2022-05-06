@@ -1,2 +1,3 @@
 bin/
 internal/api/schema.graphql
+.vscode
