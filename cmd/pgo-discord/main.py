@@ -3,6 +3,7 @@ import discord
 import shellwords
 import logging
 import sys
+import subprocess
 
 
 parser = shellwords.ShellWords()
@@ -17,7 +18,8 @@ class Client(discord.Client):
             return
         command = parser.parse(msg.content)
         if command[0].lower() == "pgo":
-            await msg.reply("Command output goes here")
+            out = subprocess.check_output(command).decode("utf8").strip()
+            await msg.reply(f"```\n{out}\n```")
 
 client = Client(intents=intents)
 client.run(sys.argv[1])
