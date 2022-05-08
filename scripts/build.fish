@@ -9,8 +9,6 @@ function build-on -a os arch ver
     end
     GOOS=$os GOARCH=$arch go build -o=./build/pgo$file ./cmd/pgo && echo SUCCESS
     echo "build/pgo$file"
-    GOOS=$os GOARCH=$arch go build -o=./build/pgo-discord$file ./cmd/pgo-discord go && echo SUCCESS
-    echo "build/pgo-discord$file"
 end
 
 gofmt -w .
