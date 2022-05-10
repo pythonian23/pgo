@@ -40,6 +40,8 @@ func who(args []string) (out string, err error) {
 			fallthrough
 		case *arguments.ID != 0:
 			query = fmt.Sprintf("id:%d", *arguments.ID)
+		case *arguments.Name != "":
+			query = fmt.Sprintf("name:%q", *arguments.Name)
 		default:
 			err = fmt.Errorf("not enough information was provided")
 			return
