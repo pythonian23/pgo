@@ -18,7 +18,7 @@ class Client(discord.Client):
             return
         command = parser.parse(msg.content)
         if command[0].lower() == "pgo":
-            out = subprocess.check_output(command).decode("utf8").strip()
+            out = subprocess.check_output(command + ["-K", sys.argv[2]]).decode("utf8").strip()
             await msg.reply(f"```\n{out}\n```")
 
 client = Client(intents=intents)
