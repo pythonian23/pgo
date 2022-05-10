@@ -2,6 +2,7 @@ package pgo
 
 import (
 	"fmt"
+	"net/url"
 
 	"github.com/pythonian23/pgo/internal/api"
 	"github.com/pythonian23/pgo/internal/flags"
@@ -26,6 +27,17 @@ func who(args []string) (out string, err error) {
 	if *arguments.Alliance {
 		var alliance *api.Data
 		switch {
+		case *arguments.Link != "":
+			var link *url.URL
+			link, err = url.Parse(*arguments.Link)
+			if err != nil {
+				break
+			}
+			_, err = fmt.Sscanf(link.EscapedPath(), "/alliance/id=%d", arguments.ID)
+			if err != nil {
+				break
+			}
+			fallthrough
 		case *arguments.ID != 0:
 			query = fmt.Sprintf("id:%d", *arguments.ID)
 		default:
