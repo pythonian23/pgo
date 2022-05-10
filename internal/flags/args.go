@@ -14,6 +14,8 @@ type identityArgs struct {
 	Alliance    *bool
 	ID          *int
 	Link        *string
+	Name        *string
+	Leader      *string
 	DiscordName *string
 }
 type apiArgs struct {

@@ -23,9 +23,11 @@ var commonArgs = Args{
 
 	identityArgs: identityArgs{
 		Alliance:    IdentityFlagSet.BoolP("alliance", "a", false, "Alliance mode switch. only links and IDs are allowed in alliance mode."),
-		ID:          IdentityFlagSet.IntP("id", "i", 0, "The nation/alliance ID (just the number)"),
+		ID:          IdentityFlagSet.IntP("id", "i", 0, "The nation/alliance ID (just the number)."),
 		Link:        IdentityFlagSet.StringP("link", "l", "", "The nation/alliance link."),
-		DiscordName: IdentityFlagSet.StringP("discord", "d", "", "The discord name"),
+		Name:        IdentityFlagSet.StringP("name", "n", "", "The nation/alliance name."),
+		Leader:      IdentityFlagSet.StringP("leader", "N", "", "The nation's leader name."),
+		DiscordName: IdentityFlagSet.StringP("discord", "d", "", "The discord name."),
 	},
 	apiArgs: apiArgs{
 		APIKey: APIFlagSet.StringP("key", "K", "", "The API key to be used for accessing the API"),
