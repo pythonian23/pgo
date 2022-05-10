@@ -30,11 +30,11 @@ func who(args []string) (out string, err error) {
 			var link *url.URL
 			link, err = url.Parse(*arguments.Link)
 			if err != nil {
-				break
+				return
 			}
 			_, err = fmt.Sscanf(link.EscapedPath(), "/alliance/id=%d", arguments.ID)
 			if err != nil {
-				break
+				return
 			}
 			fallthrough
 		case *arguments.ID != 0:
@@ -48,10 +48,13 @@ func who(args []string) (out string, err error) {
 		if err != nil {
 			return
 		}
-		var alliance *api.Data
-		alliance, err = request(fmt.Sprintf(whoAllianceQuery, query))
+		var data *api.Data
+		data, err = request(fmt.Sprintf(whoAllianceQuery, query))
+		if len(data.Alliances.Data) == 0 {
+			err = fmt.Errorf("the requested alliance was not found")
+		}
 		if err == nil {
-			out = fmt.Sprintln(alliance.Alliances.Data[0].Name)
+			out = fmt.Sprintln(data.Alliances.Data[0].Name)
 		}
 	} else {
 		switch {
@@ -59,11 +62,11 @@ func who(args []string) (out string, err error) {
 			var link *url.URL
 			link, err = url.Parse(*arguments.Link)
 			if err != nil {
-				break
+				return
 			}
 			_, err = fmt.Sscanf(link.EscapedPath(), "/nation/id=%d", arguments.ID)
 			if err != nil {
-				break
+				return
 			}
 			fallthrough
 		case *arguments.ID != 0:
@@ -77,13 +80,13 @@ func who(args []string) (out string, err error) {
 		default:
 			err = fmt.Errorf("not enough information was provided")
 		}
-		if err != nil {
-			return
+		var data *api.Data
+		data, err = request(fmt.Sprintf(whoNationQuery, query))
+		if len(data.Nations.Data) == 0 {
+			err = fmt.Errorf("the requested nation was not found")
 		}
-		var nation *api.Data
-		nation, err = request(fmt.Sprintf(whoNationQuery, query))
 		if err == nil {
-			out = fmt.Sprintln(nation.Nations.Data[0].NationName)
+			out = fmt.Sprintln(data.Nations.Data[0].NationName)
 		}
 	}
 	return
