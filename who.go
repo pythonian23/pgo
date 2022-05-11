@@ -23,6 +23,10 @@ func who(args []string) (out string, err error) {
 	Key = *arguments.APIKey
 	var query string
 	if *arguments.Alliance {
+		type allianceType struct {
+			*api.Alliance
+			Members, Applicants int
+		}
 		switch {
 		case *arguments.Link != "":
 			var link *url.URL
@@ -54,7 +58,14 @@ func who(args []string) (out string, err error) {
 		if err != nil {
 			return
 		}
-		alliance := data.Alliances.Data[0]
+		alliance := allianceType{Alliance: &data.Alliances.Data[0]}
+		for _, nation := range alliance.Nations {
+			if nation.AlliancePosition == api.PositionApplicant {
+				alliance.Applicants++
+				continue
+			}
+			alliance.Members++
+		}
 		buf := &bytes.Buffer{}
 		err = WhoAllianceTemplate.Execute(buf, alliance)
 		if err != nil {
