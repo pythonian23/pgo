@@ -1,6 +1,7 @@
 package pgo
 
 import (
+	"bytes"
 	"fmt"
 	"net/url"
 
@@ -10,9 +11,6 @@ import (
 
 var whoFlags = flags.NewFlags("who", flags.IdentityFlagSet, flags.APIFlagSet)
 var whoCmd *Command
-
-const whoNationQuery = "{nations(%s){data{nation_name}}}"
-const whoAllianceQuery = "{alliances(%s){data{name}}}"
 
 func who(args []string) (out string, err error) {
 	arguments, err := flags.ReadArgs(whoFlags, args)
@@ -53,9 +51,16 @@ func who(args []string) (out string, err error) {
 		if len(data.Alliances.Data) == 0 {
 			err = fmt.Errorf("the requested alliance was not found")
 		}
-		if err == nil {
-			out = fmt.Sprintln(data.Alliances.Data[0].Name)
+		if err != nil {
+			return
 		}
+		alliance := data.Alliances.Data[0]
+		buf := &bytes.Buffer{}
+		err = WhoAllianceTemplate.Execute(buf, alliance)
+		if err != nil {
+			return
+		}
+		out = buf.String()
 	} else {
 		switch {
 		case *arguments.Link != "":

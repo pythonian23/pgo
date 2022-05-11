@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
-	"log"
 	"net/http"
 	"net/url"
 	"strings"
@@ -21,7 +20,6 @@ func Request(accessURL string, query string) (obj *Data, err error) {
 	if err != nil {
 		return
 	}
-	log.Println(string(contents))
 	var response = &Response{}
 	err = json.Unmarshal(contents, response)
 	if err != nil {
