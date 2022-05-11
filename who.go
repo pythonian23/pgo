@@ -23,10 +23,6 @@ func who(args []string) (out string, err error) {
 	Key = *arguments.APIKey
 	var query string
 	if *arguments.Alliance {
-		type allianceType struct {
-			*api.Alliance
-			Members, Applicants int
-		}
 		switch {
 		case *arguments.Link != "":
 			var link *url.URL
@@ -58,14 +54,40 @@ func who(args []string) (out string, err error) {
 		if err != nil {
 			return
 		}
-		alliance := allianceType{Alliance: &data.Alliances.Data[0]}
+		alliance := struct {
+			*api.Alliance
+			Members, Applicants                     int
+			TotalWars, OffensiveWars, DefensiveWars int
+			OffensiveRaids, DefensiveRaids          int
+			Resistance, OpponentResistance          int
+		}{Alliance: &data.Alliances.Data[0]}
 		for _, nation := range alliance.Nations {
 			if nation.AlliancePosition == api.PositionApplicant {
 				alliance.Applicants++
 				continue
 			}
 			alliance.Members++
+			for _, war := range nation.Wars {
+				offensive := war.AttAllianceID == alliance.ID
+				raid := war.WarType == api.WarRaid
+				if offensive {
+					alliance.OffensiveWars++
+					alliance.Resistance += war.AttResistance
+					alliance.OpponentResistance += war.DefResistance
+					if raid {
+						alliance.OffensiveRaids++
+					}
+				} else {
+					alliance.DefensiveWars++
+					alliance.Resistance += war.DefResistance
+					alliance.OpponentResistance += war.AttResistance
+					if raid {
+						alliance.DefensiveRaids++
+					}
+				}
+			}
 		}
+		alliance.TotalWars = alliance.OffensiveWars + alliance.DefensiveWars
 		buf := &bytes.Buffer{}
 		err = WhoAllianceTemplate.Execute(buf, alliance)
 		if err != nil {
