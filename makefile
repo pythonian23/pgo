@@ -1,12 +1,12 @@
-test:
+test: format
 	@echo Testing PGO
 	@go test
 	@echo Testing CMD
 	@go test ./cmd/pgo
-install:
+install: format
 	@echo Installing CMD
 	@go install ./cmd/pgo
-build:
+build: format
 	@echo Building CMD
 	@go build -o=./bin/ ./cmd/pgo
 format:
