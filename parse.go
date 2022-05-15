@@ -1,6 +1,10 @@
 package pgo
 
-import flag "github.com/spf13/pflag"
+import (
+	"flag"
+
+	smore "github.com/pythonian23/SMoRe"
+)
 
 // Parse is the entrypoint for running pgo.
 // It requires arguments in an os.Args-like style and outputs a string.
@@ -16,5 +20,5 @@ func Parse(args []string) string {
 	if err != nil && err != flag.ErrHelp {
 		return ErrorHandler(err)
 	}
-	return out
+	return smore.Render(out)
 }
