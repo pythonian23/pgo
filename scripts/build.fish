@@ -7,7 +7,7 @@ function build-on -a os arch ver
     else if test "$os" = "js"
         set file $file.asm
     end
-    GOOS=$os GOARCH=$arch go build -o=./build/pgo$file ./cmd/pgo && echo SUCCESS
+    GOOS=$os GOARCH=$arch go build -o=./bin/pgo$file ./cmd/pgo && echo SUCCESS
     echo "build/pgo$file"
 end
 
