@@ -12,7 +12,7 @@ build: format
 build-release: clean
 	fish scripts/build.fish
 clean:
-	@-rm bin/ -r
+	@-rm bin/*
 format:
 	@gofmt -w .
 	@goimports -w .
