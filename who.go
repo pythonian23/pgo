@@ -55,21 +55,21 @@ func who(args []string) (out string, err error) {
 			return
 		}
 		alliance := struct {
-			*api.Alliance
+			Data                                    *api.Alliance
 			Members, Applicants                     int
 			TotalWars, OffensiveWars, DefensiveWars int
 			OffensiveRaids, DefensiveRaids          int
 			winningWars                             int
 			WinningWarPercent                       int
-		}{Alliance: &data.Alliances.Data[0]}
-		for _, nation := range alliance.Nations {
+		}{Data: &data.Alliances.Data[0]}
+		for _, nation := range alliance.Data.Nations {
 			if nation.AlliancePosition == api.PositionApplicant {
 				alliance.Applicants++
 				continue
 			}
 			alliance.Members++
 			for _, war := range nation.Wars {
-				offensive := war.AttAllianceID == alliance.ID
+				offensive := war.AttAllianceID == alliance.Data.ID
 				raid := war.WarType == api.WarRaid
 				if offensive {
 					alliance.OffensiveWars++
