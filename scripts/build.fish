@@ -1,4 +1,6 @@
 echo Running from $(pwd)
+echo Version:
+read ver
 
 function build-on -a os arch ver
     set file "-$ver-$os""_$arch"
@@ -14,7 +16,6 @@ end
 gofmt -w .
 goimports -w .
 
-set ver $argv[1]
 set platforms "linux amd64
 linux arm
 linux arm64

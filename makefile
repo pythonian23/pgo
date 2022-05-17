@@ -9,6 +9,10 @@ test: format
 build: format
 	@echo Building CMD
 	@go build -o=./bin/ ./cmd/pgo
+build-release: clean
+	fish scripts/build.fish
+clean:
+	@-rm bin/ -r
 format:
 	@gofmt -w .
 	@goimports -w .
