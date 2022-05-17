@@ -59,7 +59,8 @@ func who(args []string) (out string, err error) {
 			Members, Applicants                     int
 			TotalWars, OffensiveWars, DefensiveWars int
 			OffensiveRaids, DefensiveRaids          int
-			Resistance, OpponentResistance          int
+			winningWars                             int
+			WinningWarPercent                       int
 		}{Alliance: &data.Alliances.Data[0]}
 		for _, nation := range alliance.Nations {
 			if nation.AlliancePosition == api.PositionApplicant {
@@ -72,15 +73,17 @@ func who(args []string) (out string, err error) {
 				raid := war.WarType == api.WarRaid
 				if offensive {
 					alliance.OffensiveWars++
-					alliance.Resistance += war.AttResistance
-					alliance.OpponentResistance += war.DefResistance
+					if war.AttResistance > war.DefResistance {
+						alliance.winningWars++
+					}
 					if raid {
 						alliance.OffensiveRaids++
 					}
 				} else {
 					alliance.DefensiveWars++
-					alliance.Resistance += war.DefResistance
-					alliance.OpponentResistance += war.AttResistance
+					if war.AttResistance < war.DefResistance {
+						alliance.winningWars++
+					}
 					if raid {
 						alliance.DefensiveRaids++
 					}
@@ -88,6 +91,7 @@ func who(args []string) (out string, err error) {
 			}
 		}
 		alliance.TotalWars = alliance.OffensiveWars + alliance.DefensiveWars
+		alliance.WinningWarPercent = 100 * alliance.winningWars / alliance.TotalWars
 		buf := &bytes.Buffer{}
 		err = WhoAllianceTemplate.Execute(buf, alliance)
 		if err != nil {
