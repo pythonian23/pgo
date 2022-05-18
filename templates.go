@@ -4,7 +4,10 @@ import "text/template"
 
 var WhoAllianceTemplate = template.Must(template.New("whoAlliance").Parse(`# __{{.Data.Name}}__ ({{.Data.Acronym}})
 *https://politicsandwar.com/alliance/id={{.Data.ID}}*
-**{{.Data.Name}}** has a score of *{{.Data.Score}}*, with *{{.Members}}* members and *{{.Applicants}}* applicants.
+## General Information
+- Total score: *{{.Data.Score}}*
+- *{{.Members}}* members and *{{.Applicants}}* applicants.
+- Color: **{{.Data.Color}}**
 ## Wars
 - Involved in a total of *{{.TotalWars}}* wars.
 - *{{.OffensiveWars}}* are offensive and *{{.DefensiveWars}}* are defensive.
