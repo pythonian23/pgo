@@ -12,6 +12,6 @@ var WhoAllianceTemplate = template.Must(template.New("whoAlliance").Parse(`# __{
 - Winning roughly {{.WinningWarPercent}}% of their wars.
 ## Treaties{{with .Data.Treaties}}{{range .}}
 - **{{printf "%-12s" .TreatyType}}**:
-_{{printf "%32s" .Alliance1.Name}}_ **--=#=--** _{{.Alliance2.Name}}_
+_{{printf "%24s" .Alliance1.Name}}_ **--=#=--** _{{.Alliance2.Name}}_
 {{end}}{{else}}
 **NONE**{{end}}`))
