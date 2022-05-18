@@ -6,6 +6,7 @@ var WhoAllianceTemplate = template.Must(template.New("whoAlliance").Parse(`# __{
 *https://politicsandwar.com/alliance/id={{.Data.ID}}*
 ## General Information
 - Total score: *{{.Data.Score}}*
+- *{{.Cities}}* cities in total.
 - *{{.Members}}* members and *{{.Applicants}}* applicants.
 - Color: **{{.Data.Color}}**
 ## Wars
